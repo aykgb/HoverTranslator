@@ -1,15 +1,15 @@
 .hover-translator-tooltip {
-  position: absolute;
-  z-index: 2147483647; /* 确保置于最顶层 */
-  max-width: 300px;
-  background-color: #333;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 6px;
-  font-size: 14px;
-  line-height: 1.5;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  pointer-events: none; /* 防止弹窗遮挡鼠标事件 */
-  word-wrap: break-word;
-  font-family: sans-serif;
+    position: absolute;
+    z-index: 2147483647;
+    max-width: 300px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    /* 删除了 pointer-events: none; 允许鼠标移入弹窗进行复制 */
+    word-wrap: break-word;
+    font-family: sans-serif;
 }

@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>生成插件图标</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 20px; }
-        button { padding: 10px 20px; margin: 10px; cursor: pointer; }
-        canvas { border: 1px solid #ccc; margin: 10px; display: block; margin-left: auto; margin-right: auto;}
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
+
 <body>
     <h1>生成 Chrome 插件图标 (PNG)</h1>
     <p>点击下方按钮，生成并下载对应尺寸的图标。</p>
-    
+
     <div id="canvas-container"></div>
 
     <script>
@@ -58,4 +76,5 @@
         });
     </script>
 </body>
+
 </html>

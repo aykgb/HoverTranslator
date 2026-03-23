@@ -1,22 +1,28 @@
 {
-  "manifest_version": 3,
-  "name": "Ctrl+Hover 自动翻译",
-  "version": "1.0",
-  "description": "鼠标光标悬停在文字上并按住 Ctrl 键即可自动翻译",
-  "permissions": [
-    "activeTab"
-  ],
-  "host_permissions": [
-    "https://translate.googleapis.com/*"
-  ],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "css": ["style.css"]
+    "manifest_version": 3,
+    "name": "Ctrl+Hover 自动翻译",
+    "version": "1.0",
+    "description": "鼠标光标悬停在文字上并按住 Ctrl 键即可自动翻译",
+    "permissions": [
+        "activeTab"
+    ],
+    "host_permissions": [
+        "https://translate.googleapis.com/*"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "style.css"
+            ]
+        }
+    ],
+    "background": {
+        "service_worker": "background.js"
     }
-  ],
-  "background": {
-    "service_worker": "background.js"
-  }
 }
