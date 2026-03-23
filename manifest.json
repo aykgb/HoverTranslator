@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Ctrl+Hover 自动翻译",
+    "name": "HoverTranslate - 悬停即翻，智能互译",
     "version": "1.1",
     "description": "鼠标光标悬停在文字上并按住 Ctrl 键即可自动翻译",
     "permissions": [
