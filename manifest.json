@@ -1,14 +1,19 @@
 {
     "manifest_version": 3,
     "name": "Ctrl+Hover 自动翻译",
-    "version": "1.0",
+    "version": "1.1",
     "description": "鼠标光标悬停在文字上并按住 Ctrl 键即可自动翻译",
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "storage"
     ],
     "host_permissions": [
         "https://translate.googleapis.com/*"
     ],
+    "options_ui": {
+        "page": "options.html",
+        "open_in_tab": true
+    },
     "content_scripts": [
         {
             "matches": [
@@ -24,5 +29,20 @@
     ],
     "background": {
         "service_worker": "background.js"
+    },
+    "icons": {
+        "16": "icons/icon16.png",
+        "32": "icons/icon32.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "action": {
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "32": "icons/icon32.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        },
+        "default_title": "自动翻译设置"
     }
 }

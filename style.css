@@ -1,15 +1,37 @@
+/* 基础公共样式 (排版、间距、定位) */
 .hover-translator-tooltip {
-    position: absolute;
-    z-index: 2147483647;
-    max-width: 300px;
-    background-color: #333;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 6px;
-    font-size: 14px;
-    line-height: 1.5;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    /* 删除了 pointer-events: none; 允许鼠标移入弹窗进行复制 */
-    word-wrap: break-word;
-    font-family: sans-serif;
+  position: absolute;
+  z-index: 2147483647;
+  max-width: 320px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: 0.5px;
+  word-wrap: break-word;
+}
+
+/* 风格1：高级勃艮第红 */
+.hover-translator-tooltip.theme-red {
+  background: linear-gradient(135deg, #8e0000 0%, #4a0000 100%);
+  color: #ffffff;
+  border: 1px solid #b71c1c;
+  box-shadow: 0 8px 24px rgba(120, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* 风格2：经典极客黑 */
+.hover-translator-tooltip.theme-dark {
+  background-color: #2b2b2b;
+  color: #eeeeee;
+  border: 1px solid #444;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 风格3：简约护眼白 */
+.hover-translator-tooltip.theme-light {
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
