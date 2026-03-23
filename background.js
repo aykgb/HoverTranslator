@@ -1,9 +1,3 @@
-// 监听浏览器右上角插件图标的左键点击事件
-chrome.action.onClicked.addListener((tab) => {
-    // 自动打开我们在 manifest.json 中注册的选项页面
-    chrome.runtime.openOptionsPage();
-});
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type === 'translate') {
         // 设置源语言为自动检测(auto)，目标语言为简体中文(zh-CN)
