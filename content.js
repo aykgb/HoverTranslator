@@ -52,11 +52,9 @@ const onMouseMove = (e) => {
 };
 
 const onKeyDown = (e) => {
-    // 【终极修复核心】：探测插件上下文是否存活
     try {
         chrome.runtime.id;
     } catch (error) {
-        // 自我销毁
         document.removeEventListener('keydown', onKeyDown);
         return;
     }
@@ -73,12 +71,16 @@ const onKeyDown = (e) => {
 
         if (textToTranslate) {
             try {
+                // 【新增：立刻显示加载状态】发送请求前，先在鼠标位置生成一个“翻译中...”的弹窗
+                showTooltip("⏳ 翻译中...", mouseX, mouseY, true);
+
                 chrome.runtime.sendMessage({ type: 'translate', text: textToTranslate }, (response) => {
-                    // 检查 lastError，防止后台没响应时控制台出现黄字警告
                     if (chrome.runtime.lastError) return;
 
-                    if (response && response.translatedText) {
-                        showTooltip(response.translatedText, mouseX, mouseY);
+                    // 【新增：更新翻译结果】收到回复后，如果弹窗还没被鼠标移出关掉，就更新它的内容
+                    if (tooltip && response && response.translatedText) {
+                        tooltip.classList.remove('is-loading'); // 移除加载动画类名
+                        tooltip.innerText = response.translatedText; // 替换为真实翻译内容
                     }
                 });
             } catch (error) {
@@ -93,13 +95,15 @@ document.addEventListener('mousemove', onMouseMove);
 document.addEventListener('keydown', onKeyDown);
 
 // 显示翻译结果的弹窗
-function showTooltip(text, x, y) {
+// 支持加载状态的 showTooltip 函数
+function showTooltip(text, x, y, isLoading = false) {
     if (tooltip) {
         tooltip.remove();
     }
 
     tooltip = document.createElement('div');
-    tooltip.className = `hover-translator-tooltip ${currentTheme}`;
+    // 根据是否处于加载状态，添加额外的 is-loading 类名
+    tooltip.className = `hover-translator-tooltip ${currentTheme} ${isLoading ? 'is-loading' : ''}`;
     tooltip.innerText = text;
 
     const scrollX = window.scrollX || window.pageXOffset;
