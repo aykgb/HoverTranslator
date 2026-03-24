@@ -1,9 +1,9 @@
 // 初始化和设置部分
-let currentTheme = 'theme-red';
+let currentTheme = 'theme-light';
 
 try {
     // 捕获初始化时可能的上下文错误
-    chrome.storage.sync.get({ theme: 'theme-red' }, (items) => {
+    chrome.storage.sync.get({ theme: 'theme-light' }, (items) => {
         currentTheme = items.theme;
     });
 
