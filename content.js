@@ -59,6 +59,9 @@ const onKeyDown = (e) => {
         return;
     }
 
+    // 焦点检测确保当前网页是激活状态，且用户没有在操作地址栏或其他窗口
+    if (!document.hasFocus()) return;
+
     if (e.key === 'Control' && !tooltip) {
         let textToTranslate = window.getSelection().toString().trim();
 
