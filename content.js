@@ -20,6 +20,10 @@ let mouseX = 0;
 let mouseY = 0;
 let tooltip = null;
 
+// 用于临时存储被移除的 title 属性和所属元素
+let hiddenTitleElement = null;
+let originalTitleText = '';
+
 // 定义具名函数，以便随时解除绑定
 const onMouseMove = (e) => {
     // 【终极修复核心】：探测探测插件上下文是否存活
@@ -45,6 +49,12 @@ const onMouseMove = (e) => {
             mouseY > rect.bottom + buffer;
 
         if (isOutside) {
+            if (hiddenTitleElement) {
+                hiddenTitleElement.setAttribute('title', originalTitleText);
+                hiddenTitleElement = null; // 清空记录
+                originalTitleText = '';
+            }
+
             tooltip.remove();
             tooltip = null;
         }
@@ -63,13 +73,20 @@ const onKeyDown = (e) => {
     if (!document.hasFocus()) return;
 
     if (e.key === 'Control' && !tooltip) {
-        let textToTranslate = window.getSelection().toString().trim();
-
-        if (!textToTranslate) {
-            const element = document.elementFromPoint(mouseX, mouseY);
-            if (element && element.innerText) {
-                textToTranslate = element.innerText.trim().substring(0, 500);
+        const element = document.elementFromPoint(mouseX, mouseY);
+        if (element) {
+            // 使用 closest 向上查找，因为 title 有时写在父级 <a> 标签上
+            const titleElem = element.closest('[title]');
+            if (titleElem) {
+                hiddenTitleElement = titleElem; // 记录是哪个元素
+                originalTitleText = titleElem.getAttribute('title'); // 保存 title 内容
+                titleElem.removeAttribute('title'); // 临时移除，阻止浏览器原生弹窗！
             }
+        }
+
+        let textToTranslate = window.getSelection().toString().trim();
+        if (!textToTranslate && element && element.innerText) {
+            textToTranslate = element.innerText.trim().substring(0, 500);
         }
 
         if (textToTranslate) {
