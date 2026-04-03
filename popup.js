@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('status');
 
     // 1. 打开弹窗时，读取当前保存的设置并选中
-    chrome.storage.sync.get({ theme: 'theme-red' }, (items) => {
+    chrome.storage.sync.get({ theme: 'theme-light' }, (items) => {
         themeSelect.value = items.theme;
     });
 

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>生成 HoverTranslate 红色高级图标</title>
+    <title>生成 HoverTranslate 红色“译”字行楷图标</title>
     <style>
         body {
             font-family: 'Segoe UI', Roboto, sans-serif;
@@ -66,15 +66,14 @@
         canvas {
             background-color: transparent;
             border-radius: 50%;
-            /* 给 canvas 加一点淡淡的阴影，预览效果更好 */
             box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
         }
     </style>
 </head>
 
 <body>
-    <h1>生成 HoverTranslate 红色图标</h1>
-    <p class="description">风格：手写体 | 配色：红宝石(Ruby) 转 勃艮第酒红(Bordeaux) 配纯白 (极致高对比/高级感)</p>
+    <h1>生成 HoverTranslate “译”字图标</h1>
+    <p class="description">风格：行楷汉字排版 (流畅生动) | 配色：红宝石 转 勃艮第酒红 配纯白</p>
 
     <div class="canvas-container" id="canvas-container"></div>
 
@@ -82,18 +81,17 @@
         const sizes = [128, 48, 32, 16];
         const container = document.getElementById('canvas-container');
 
-        // 全新红色高级配色定义
+        // 配色定义
         const colors = {
-            bgStart: '#E63946', // 红宝石色 (Ruby Red) - 明亮、有活力
-            bgEnd: '#780000',   // 深勃艮第酒红 (Bordeaux) - 深邃、压住浮躁感
-            text: '#FFFFFF'     // 纯白 (Pure White) - 提供最清晰的对比度
+            bgStart: '#E63946', // Ruby
+            bgEnd: '#780000',   // Bordeaux
+            text: '#FFFFFF'
         };
 
         sizes.forEach(size => {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'icon-item';
 
-            // 1. 创建 Canvas 元素
             const canvas = document.createElement('canvas');
             canvas.width = size;
             canvas.height = size;
@@ -103,8 +101,7 @@
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = 'high';
 
-            // --- 2. 绘制圆形背景 (红色高级渐变) ---
-            // 调整渐变角度，从左上角到右下角，增加光影立体感
+            // 绘制圆形背景渐变
             const gradient = ctx.createLinearGradient(0, 0, size, size);
             gradient.addColorStop(0, colors.bgStart);
             gradient.addColorStop(1, colors.bgEnd);
@@ -114,31 +111,30 @@
             ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
             ctx.fill();
 
-            // --- 3. 绘制手写体 'T' ---
-            ctx.strokeStyle = colors.text;
+            // 绘制文字“译”
+            const text = "译";
 
-            // 笔画粗细设定
-            const lineWidth = Math.max(1.5, size * 0.09);
-            ctx.lineWidth = lineWidth;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
+            // 行楷字体往往比较饱满且有连笔动作，
+            // 设为 60% 保持在圆环内，避免显得拥挤。
+            const fontSize = size * 0.80;
 
-            const p = (val) => val * size / 100;
+            // 1. 设置字体粗细：bold (行楷本身笔画流动，bold能增加厚重感)
+            // 2. 设置字体栈：
+            // - "STXingkai": 华文行楷，Mac和部分Windows(带Office)常见。
+            // - "Xingkai SC": 行楷-简，特定macOS版本字体。
+            // - "KaiTi": 楷体，Windows和Android常见保底系统字体（虽然是楷体，但在 script-like 风格中作为保底）。
+            // - cursive: 最终保底使用手写风格字体。
+            ctx.font = `bold ${fontSize}px "STXingkai", "Huawen Xingkai", "Xingkai SC", "KaiTi", "STKaiti", cursive`;
 
-            ctx.beginPath();
+            ctx.fillStyle = colors.text;
 
-            // T 字顶部横梁 (保持流畅弧度)
-            ctx.moveTo(p(25), p(28));
-            ctx.quadraticCurveTo(p(50), p(20), p(75), p(28));
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
 
-            // T 字竖笔 (从中间偏上开始，向下延伸并向左起钩)
-            ctx.moveTo(p(50), p(25));
-            ctx.quadraticCurveTo(p(55), p(55), p(50), p(80));
-            ctx.quadraticCurveTo(p(48), p(90), p(35), p(85));
+            // 行楷汉字的视觉中心通常也需要轻微上移平衡位置，保持 0.02 的偏移量
+            ctx.fillText(text, size / 2, size / 2 + size * 0.02);
 
-            ctx.stroke();
-
-            // --- 4. 创建下载按钮 ---
+            // 创建下载按钮
             const button = document.createElement('button');
             button.innerText = `下载 icon${size}.png (${size}x${size})`;
             button.onclick = () => {
