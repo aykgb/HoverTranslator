@@ -4,7 +4,6 @@
     "version": "1.1",
     "description": "鼠标光标悬停在文字上并按住 Ctrl 键即可自动翻译",
     "permissions": [
-        "activeTab",
         "storage"
     ],
     "host_permissions": [
